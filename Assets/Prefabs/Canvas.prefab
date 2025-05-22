@@ -22,45 +22,25 @@ GameObject:
   m_Name: JumpButton
   m_Component:
   - component: {fileID: 12}
-  - component: {fileID: 13}
-  - component: {fileID: 14}
   m_Layer: 5
   m_Parent: {fileID: 1}
 --- !u!224 &12
 RectTransform:
---- !u!114 &13
-MonoBehaviour:
-  m_Script: {fileID: 11500000, guid: 00000000000000000000000000000000, type: 3}
---- !u!114 &14
-MonoBehaviour:
-  m_Script: {fileID: 11500000, guid: 00000000000000000000000000000000, type: 3}
 --- !u!1 &20
 GameObject:
   m_Name: RestartButton
   m_Component:
   - component: {fileID: 22}
-  - component: {fileID: 23}
-  - component: {fileID: 24}
   m_Layer: 5
   m_Parent: {fileID: 1}
 --- !u!224 &22
 RectTransform:
---- !u!114 &23
-MonoBehaviour:
-  m_Script: {fileID: 11500000, guid: 00000000000000000000000000000000, type: 3}
---- !u!114 &24
-MonoBehaviour:
-  m_Script: {fileID: 11500000, guid: 00000000000000000000000000000000, type: 3}
 --- !u!1 &30
 GameObject:
   m_Name: ResultText
   m_Component:
   - component: {fileID: 32}
-  - component: {fileID: 33}
   m_Layer: 5
   m_Parent: {fileID: 1}
 --- !u!224 &32
 RectTransform:
---- !u!114 &33
-MonoBehaviour:
-  m_Script: {fileID: 11500000, guid: 00000000000000000000000000000000, type: 3}
