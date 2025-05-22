@@ -27,5 +27,5 @@ BoxCollider:
   m_IsTrigger: 0
 --- !u!114 &75
 MonoBehaviour:
-  m_Script: {fileID: 11500000, guid: 00000000000000000000000000000000, type: 3}
+  m_Script: {fileID: 11500000, guid: a2b7e02aefb84eef8fca0307ecc92bbc, type: 3}
   speed: 4
