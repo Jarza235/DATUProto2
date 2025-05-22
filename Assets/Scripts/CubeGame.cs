@@ -5,6 +5,7 @@ public class CubeGame : MonoBehaviour
     public float jumpForce = 50f;
 
     private CubeModel model;
+    [SerializeField]
     private CubeView view;
 
     const float floorLimit = 0.5f;
@@ -13,12 +14,19 @@ public class CubeGame : MonoBehaviour
     void Start()
     {
         model = new CubeModel();
-        view = new CubeView();
-        view.SetupScene();
-        model.StartGame();
+        if (view == null)
+        {
+            view = FindObjectOfType<CubeView>();
+        }
 
-        view.JumpButton.onClick.AddListener(ApplyJump);
-        view.RestartButton.onClick.AddListener(view.RestartScene);
+        if (view != null)
+        {
+            view.SetupScene();
+            model.StartGame();
+
+            view.JumpButton.onClick.AddListener(ApplyJump);
+            view.RestartButton.onClick.AddListener(view.RestartScene);
+        }
     }
 
     void ApplyJump()
