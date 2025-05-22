@@ -44,13 +44,6 @@ public class CubeView
         ceiling.transform.rotation = Quaternion.Euler(-180f, 0f, 0f);
         ceiling.AddComponent<BoxCollider>();
 
-        // Camera setup
-        if (Camera.main != null)
-        {
-            Camera.main.transform.position = new Vector3(0f, 3f, -8f);
-            Camera.main.transform.LookAt(cube.transform);
-        }
-
         // Create Canvas
         GameObject canvasGO = new GameObject("Canvas");
         Canvas canvas = canvasGO.AddComponent<Canvas>();
