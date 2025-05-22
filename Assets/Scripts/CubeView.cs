@@ -114,7 +114,7 @@ public class CubeView : MonoBehaviour
             GameObject resultGO = new GameObject("ResultText");
             resultGO.transform.SetParent(canvasGO.transform);
             ResultText = resultGO.AddComponent<Text>();
-            ResultText.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
+            ResultText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
             ResultText.alignment = TextAnchor.UpperCenter;
             RectTransform resultRect = resultGO.GetComponent<RectTransform>();
             resultRect.sizeDelta = new Vector2(400f, 30f);
@@ -216,7 +216,7 @@ public class CubeView : MonoBehaviour
         GameObject textGO = new GameObject("Text");
         textGO.transform.SetParent(btnGO.transform);
         Text txt = textGO.AddComponent<Text>();
-        txt.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
+        txt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
         txt.alignment = TextAnchor.MiddleCenter;
         txt.text = label;
         RectTransform txtRect = textGO.GetComponent<RectTransform>();
