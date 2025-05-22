@@ -95,13 +95,13 @@ public class CubeView : MonoBehaviour
             GameObject jumpGO = CreateButton("JumpButton", canvasGO.transform, "Jump", new Vector2(0f, 50f));
             JumpButton = jumpGO.GetComponent<Button>();
 
-            GameObject restartGO = CreateButton("RestartButton", canvasGO.transform, "Restart", new Vector2(0f, 10f));
+            GameObject restartGO = CreateButton("RestartButton", canvasGO.transform, "Restart", new Vector2(0f, 150f));
             RestartButton = restartGO.GetComponent<Button>();
 
             GameObject timerGO = new GameObject("TimerText");
             timerGO.transform.SetParent(canvasGO.transform);
             TimerText = timerGO.AddComponent<Text>();
-            TimerText.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
+            TimerText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
             TimerText.alignment = TextAnchor.UpperCenter;
             TimerText.fontSize = 32;
             RectTransform timerRect = timerGO.GetComponent<RectTransform>();
