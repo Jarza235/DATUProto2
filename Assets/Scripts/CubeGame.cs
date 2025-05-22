@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class CubeGame : MonoBehaviour
 {
@@ -44,6 +45,11 @@ public class CubeGame : MonoBehaviour
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
         canvasGO.AddComponent<CanvasScaler>();
         canvasGO.AddComponent<GraphicRaycaster>();
+
+        // Event System for UI interaction
+        GameObject eventSystemGO = new GameObject("EventSystem");
+        eventSystemGO.AddComponent<EventSystem>();
+        eventSystemGO.AddComponent<StandaloneInputModule>();
 
         // Jump Button
         GameObject buttonGO = new GameObject("JumpButton");
