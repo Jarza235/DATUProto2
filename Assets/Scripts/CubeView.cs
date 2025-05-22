@@ -15,12 +15,31 @@ public class CubeView
         // Create Cube
         GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
         cube.transform.position = new Vector3(0f, 5f, 0f);
+        cube.tag = "Player";
         CubeRb = cube.AddComponent<Rigidbody>();
 
         // Create Ground
         GameObject ground = GameObject.CreatePrimitive(PrimitiveType.Plane);
         ground.transform.position = Vector3.zero;
         ground.AddComponent<BoxCollider>();
+
+        // Obstacle prefab
+        GameObject obstaclePrefab = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        obstaclePrefab.GetComponent<Renderer>().material.color = Color.red;
+        obstaclePrefab.AddComponent<BoxCollider>();
+        obstaclePrefab.AddComponent<Obstacle>();
+        obstaclePrefab.SetActive(false);
+
+        // Spawner
+        ObstacleSpawner spawner = new GameObject("Spawner").AddComponent<ObstacleSpawner>();
+        spawner.obstaclePrefab = obstaclePrefab;
+        spawner.minY = 1f;
+        spawner.maxY = 9f;
+
+        // Create Ceiling
+        GameObject ceiling = GameObject.CreatePrimitive(PrimitiveType.Plane);
+        ceiling.transform.position = new Vector3(0f, 10f, 0f);
+        ceiling.AddComponent<BoxCollider>();
 
         // Camera setup
         if (Camera.main != null)
