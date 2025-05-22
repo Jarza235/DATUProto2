@@ -89,6 +89,25 @@ public class CubeView : MonoBehaviour
             GameObject eventSystemGO = new GameObject("EventSystem");
             eventSystemGO.AddComponent<EventSystem>();
             eventSystemGO.AddComponent<StandaloneInputModule>();
+
+            // Create UI elements programmatically
+            GameObject jumpGO = CreateButton("JumpButton", canvasGO.transform, "Jump", new Vector2(0f, 50f));
+            JumpButton = jumpGO.GetComponent<Button>();
+
+            GameObject restartGO = CreateButton("RestartButton", canvasGO.transform, "Restart", new Vector2(0f, 10f));
+            RestartButton = restartGO.GetComponent<Button>();
+
+            GameObject resultGO = new GameObject("ResultText");
+            resultGO.transform.SetParent(canvasGO.transform);
+            ResultText = resultGO.AddComponent<Text>();
+            ResultText.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
+            ResultText.alignment = TextAnchor.UpperCenter;
+            RectTransform resultRect = resultGO.GetComponent<RectTransform>();
+            resultRect.sizeDelta = new Vector2(400f, 30f);
+            resultRect.anchorMin = new Vector2(0.5f, 1f);
+            resultRect.anchorMax = new Vector2(0.5f, 1f);
+            resultRect.pivot = new Vector2(0.5f, 1f);
+            resultRect.anchoredPosition = new Vector2(0f, -30f);
         }
 
         // Jump Button
@@ -124,6 +143,37 @@ public class CubeView : MonoBehaviour
     public void RestartScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    GameObject CreateButton(string name, Transform parent, string label, Vector2 position)
+    {
+        GameObject btnGO = new GameObject(name);
+        btnGO.transform.SetParent(parent);
+
+        Image img = btnGO.AddComponent<Image>();
+        img.color = Color.white;
+        btnGO.AddComponent<Button>();
+
+        RectTransform rect = btnGO.GetComponent<RectTransform>();
+        rect.sizeDelta = new Vector2(160f, 30f);
+        rect.anchorMin = new Vector2(0.5f, 0f);
+        rect.anchorMax = new Vector2(0.5f, 0f);
+        rect.pivot = new Vector2(0.5f, 0.5f);
+        rect.anchoredPosition = position;
+
+        GameObject textGO = new GameObject("Text");
+        textGO.transform.SetParent(btnGO.transform);
+        Text txt = textGO.AddComponent<Text>();
+        txt.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
+        txt.alignment = TextAnchor.MiddleCenter;
+        txt.text = label;
+        RectTransform txtRect = textGO.GetComponent<RectTransform>();
+        txtRect.anchorMin = Vector2.zero;
+        txtRect.anchorMax = Vector2.one;
+        txtRect.offsetMin = Vector2.zero;
+        txtRect.offsetMax = Vector2.zero;
+
+        return btnGO;
     }
 
     Material CreateStripedMaterial()
