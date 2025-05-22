@@ -21,14 +21,18 @@ public class CubeView
         // Create Ground
         GameObject ground = GameObject.CreatePrimitive(PrimitiveType.Plane);
         ground.transform.position = Vector3.zero;
+        ground.transform.localScale = new Vector3(3f, 1f, 3f); // wider so it fills the view
         ground.AddComponent<BoxCollider>();
+        ground.GetComponent<Renderer>().material = CreateStripedMaterial();
+        ScrollingTexture groundScroll = ground.AddComponent<ScrollingTexture>();
 
         // Obstacle prefab
         GameObject obstaclePrefab = GameObject.CreatePrimitive(PrimitiveType.Cube);
         obstaclePrefab.GetComponent<Renderer>().material.color = Color.red;
         obstaclePrefab.AddComponent<BoxCollider>();
-        obstaclePrefab.AddComponent<Obstacle>();
+        Obstacle obstacleComponent = obstaclePrefab.AddComponent<Obstacle>();
         obstaclePrefab.SetActive(false);
+        groundScroll.worldScrollSpeed = obstacleComponent.speed;
 
         // Spawner
         ObstacleSpawner spawner = new GameObject("Spawner").AddComponent<ObstacleSpawner>();
@@ -42,7 +46,11 @@ public class CubeView
         GameObject ceiling = GameObject.CreatePrimitive(PrimitiveType.Plane);
         ceiling.transform.position = new Vector3(0f, 10f, 0f);
         ceiling.transform.rotation = Quaternion.Euler(-180f, 0f, 0f);
+        ceiling.transform.localScale = new Vector3(3f, 1f, 3f); // match ground width
         ceiling.AddComponent<BoxCollider>();
+        ceiling.GetComponent<Renderer>().material = CreateStripedMaterial();
+        ScrollingTexture ceilingScroll = ceiling.AddComponent<ScrollingTexture>();
+        ceilingScroll.worldScrollSpeed = obstacleComponent.speed;
 
         // Create Canvas
         GameObject canvasGO = new GameObject("Canvas");
@@ -123,5 +131,26 @@ public class CubeView
     public void RestartScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    Material CreateStripedMaterial()
+    {
+        Material mat = new Material(Shader.Find("Unlit/Texture"));
+        const int size = 64;
+        Texture2D tex = new Texture2D(size, size);
+        Color c1 = new Color(0.7f, 0.7f, 0.7f, 1f);
+        Color c2 = new Color(0.5f, 0.5f, 0.5f, 1f);
+        for (int x = 0; x < size; x++)
+        {
+            for (int y = 0; y < size; y++)
+            {
+                bool even = (x / 8) % 2 == 0;
+                tex.SetPixel(x, y, even ? c1 : c2);
+            }
+        }
+        tex.Apply();
+        tex.wrapMode = TextureWrapMode.Repeat;
+        mat.mainTexture = tex;
+        return mat;
     }
 }
