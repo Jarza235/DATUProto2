@@ -10,6 +10,16 @@ public class ObstacleSpawner : MonoBehaviour
     public float minY = 1f;
     public float maxY = 9f;
 
+    public float floorLimit = 0.5f;
+    public float ceilingLimit = 9.5f;
+
+    // time after which two obstacles are spawned instead of one
+    public float doubleSpawnTime = 20f;
+    // time after which obstacle height starts increasing
+    public float tallObstacleTime = 40f;
+    // maximum height for tall obstacles
+    public float maxObstacleHeight = 4f;
+
     private readonly List<GameObject> pool = new List<GameObject>();
     private float timer;
 
@@ -35,11 +45,38 @@ public class ObstacleSpawner : MonoBehaviour
 
     void SpawnObstacle()
     {
-        GameObject obj = GetPooledObject();
-        if (obj == null) return;
-        float y = Random.Range(minY, maxY);
-        obj.transform.position = new Vector3(spawnX, y, 0f);
-        obj.SetActive(true);
+        float gameTime = Time.timeSinceLevelLoad;
+        int count = gameTime >= doubleSpawnTime ? 2 : 1;
+
+        float prevY = float.NaN;
+        for (int i = 0; i < count; i++)
+        {
+            GameObject obj = GetPooledObject();
+            if (obj == null) return;
+
+            float height = 1f;
+            if (gameTime >= tallObstacleTime)
+            {
+                height = Random.Range(1f, maxObstacleHeight);
+                float maxAllowed = (ceilingLimit - floorLimit) - 1f;
+                height = Mathf.Min(height, maxAllowed);
+            }
+
+            obj.transform.localScale = new Vector3(1f, height, 1f);
+
+            float halfHeight = height / 2f;
+            float y = Random.Range(minY, maxY);
+            y = Mathf.Clamp(y, floorLimit + halfHeight, ceilingLimit - halfHeight);
+            if (!float.IsNaN(prevY) && Mathf.Abs(y - prevY) < 0.5f)
+            {
+                y = Mathf.Clamp(prevY + Random.Range(1f, 2f) * (Random.value > 0.5f ? 1f : -1f),
+                                 floorLimit + halfHeight, ceilingLimit - halfHeight);
+            }
+            prevY = y;
+
+            obj.transform.position = new Vector3(spawnX, y, 0f);
+            obj.SetActive(true);
+        }
     }
 
     GameObject GetPooledObject()

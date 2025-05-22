@@ -35,6 +35,8 @@ public class CubeView
         spawner.obstaclePrefab = obstaclePrefab;
         spawner.minY = 1f;
         spawner.maxY = 9f;
+        spawner.floorLimit = 0.5f;
+        spawner.ceilingLimit = 9.5f;
 
         // Create Ceiling
         GameObject ceiling = GameObject.CreatePrimitive(PrimitiveType.Plane);
