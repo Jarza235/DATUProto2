@@ -351,8 +351,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62da53cf002c4f17bc532b0aa9e48e13, type: 3}
   m_Name:
   m_EditorClassIdentifier:
-  cubePrefab: {fileID: 100000, guid: adac71fa928d42aea00f2f6542227e10, type: 3}
-  obstaclePrefab: {fileID: 100000, guid: 5f82059e928e424c99f166f6b2d7eaa9, type: 3}
+  cubePrefab: {fileID: 0}
+  obstaclePrefab: {fileID: 0}
   canvasPrefab: {fileID: 0}
 --- !u!4 &1000000002
 Transform:
