@@ -39,6 +39,7 @@ public class CubeView
         // Create Ceiling
         GameObject ceiling = GameObject.CreatePrimitive(PrimitiveType.Plane);
         ceiling.transform.position = new Vector3(0f, 10f, 0f);
+        ceiling.transform.rotation = Quaternion.Euler(-180f, 0f, 0f);
         ceiling.AddComponent<BoxCollider>();
 
         // Camera setup
