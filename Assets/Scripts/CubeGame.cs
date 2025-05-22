@@ -55,7 +55,7 @@ public class CubeGame : MonoBehaviour
         Text btnText = new GameObject("Text").AddComponent<Text>();
         btnText.transform.SetParent(buttonGO.transform);
         btnText.text = "Jump";
-        btnText.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
+        btnText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
         btnText.alignment = TextAnchor.MiddleCenter;
         btnText.color = Color.black;
         RectTransform textRect = btnText.GetComponent<RectTransform>();
@@ -69,7 +69,7 @@ public class CubeGame : MonoBehaviour
         GameObject textGO = new GameObject("ResultText");
         textGO.transform.SetParent(canvasGO.transform);
         resultText = textGO.AddComponent<Text>();
-        resultText.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
+        resultText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
         resultText.fontSize = 24;
         resultText.alignment = TextAnchor.MiddleCenter;
         RectTransform resultRect = resultText.GetComponent<RectTransform>();
