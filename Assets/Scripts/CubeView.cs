@@ -11,6 +11,7 @@ public class CubeView : MonoBehaviour
 
     public Rigidbody CubeRb { get; private set; }
     public Text ResultText { get; private set; }
+    public Text TimerText { get; private set; }
     public Button JumpButton { get; private set; }
     public Button RestartButton { get; private set; }
 
@@ -97,6 +98,19 @@ public class CubeView : MonoBehaviour
             GameObject restartGO = CreateButton("RestartButton", canvasGO.transform, "Restart", new Vector2(0f, 10f));
             RestartButton = restartGO.GetComponent<Button>();
 
+            GameObject timerGO = new GameObject("TimerText");
+            timerGO.transform.SetParent(canvasGO.transform);
+            TimerText = timerGO.AddComponent<Text>();
+            TimerText.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
+            TimerText.alignment = TextAnchor.UpperCenter;
+            TimerText.fontSize = 32;
+            RectTransform timerRect = timerGO.GetComponent<RectTransform>();
+            timerRect.sizeDelta = new Vector2(200f, 40f);
+            timerRect.anchorMin = new Vector2(0.5f, 1f);
+            timerRect.anchorMax = new Vector2(0.5f, 1f);
+            timerRect.pivot = new Vector2(0.5f, 1f);
+            timerRect.anchoredPosition = new Vector2(0f, -70f);
+
             GameObject resultGO = new GameObject("ResultText");
             resultGO.transform.SetParent(canvasGO.transform);
             ResultText = resultGO.AddComponent<Text>();
@@ -115,6 +129,13 @@ public class CubeView : MonoBehaviour
         if (jumpT != null)
         {
             JumpButton = jumpT.GetComponent<Button>();
+            Image img = JumpButton.GetComponent<Image>();
+            if (img != null)
+                img.color = new Color(0f, 1f, 0f, 0.5f);
+
+            RectTransform rect = JumpButton.GetComponent<RectTransform>();
+            if (rect != null)
+                rect.sizeDelta = new Vector2(300f, 80f);
         }
 
         // Restart Button
@@ -122,6 +143,15 @@ public class CubeView : MonoBehaviour
         if (restartT != null)
         {
             RestartButton = restartT.GetComponent<Button>();
+            Image img = RestartButton.GetComponent<Image>();
+            if (img != null)
+                img.color = new Color(1f, 1f, 1f, 0.5f);
+
+            RectTransform rect = RestartButton.GetComponent<RectTransform>();
+            if (rect != null)
+                rect.sizeDelta = new Vector2(300f, 80f);
+
+            RestartButton.gameObject.SetActive(false);
         }
 
         // Result Text
@@ -129,6 +159,14 @@ public class CubeView : MonoBehaviour
         if (resultT != null)
         {
             ResultText = resultT.GetComponent<Text>();
+        }
+
+        // Timer Text
+        Transform timerT = canvasGO.transform.Find("TimerText");
+        if (timerT != null)
+        {
+            TimerText = timerT.GetComponent<Text>();
+            TimerText.fontSize = 32;
         }
     }
 
@@ -138,11 +176,25 @@ public class CubeView : MonoBehaviour
         {
             ResultText.text = $"You lasted {time:F2} seconds Best: {highScore:F2} seconds";
         }
+
+        if (JumpButton != null)
+            JumpButton.gameObject.SetActive(false);
+
+        if (RestartButton != null)
+            RestartButton.gameObject.SetActive(true);
     }
 
     public void RestartScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void UpdateTimer(float time)
+    {
+        if (TimerText != null)
+        {
+            TimerText.text = time.ToString("F2");
+        }
     }
 
     GameObject CreateButton(string name, Transform parent, string label, Vector2 position)

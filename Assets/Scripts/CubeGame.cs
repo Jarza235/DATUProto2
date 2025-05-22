@@ -60,6 +60,11 @@ public class CubeGame : MonoBehaviour
 
     void Update()
     {
+        if (view != null && !model.GameOver)
+        {
+            view.UpdateTimer(Time.time - model.StartTime);
+        }
+
         if (model.GameOver || view.CubeRb == null) return;
 
         if (view.CubeRb.transform.position.y <= floorLimit || view.CubeRb.transform.position.y >= ceilingLimit)
