@@ -1,15 +1,17 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class CubeGame : MonoBehaviour
 {
-    public float jumpForce = 5f;
+    public float jumpForce = 50f;
 
     private Rigidbody cubeRb;
     private bool gameOver = false;
     private float startTime;
     private Text resultText;
     private Button jumpButton;
+    private Button restartButton;
 
     void Start()
     {
@@ -43,7 +45,7 @@ public class CubeGame : MonoBehaviour
         canvasGO.AddComponent<CanvasScaler>();
         canvasGO.AddComponent<GraphicRaycaster>();
 
-        // Button
+        // Jump Button
         GameObject buttonGO = new GameObject("JumpButton");
         buttonGO.transform.SetParent(canvasGO.transform);
         jumpButton = buttonGO.AddComponent<Button>();
@@ -64,6 +66,28 @@ public class CubeGame : MonoBehaviour
         textRect.offsetMin = Vector2.zero;
         textRect.offsetMax = Vector2.zero;
         jumpButton.onClick.AddListener(ApplyJump);
+
+        // Restart Button
+        GameObject restartGO = new GameObject("RestartButton");
+        restartGO.transform.SetParent(canvasGO.transform);
+        restartButton = restartGO.AddComponent<Button>();
+        Image restartImage = restartGO.AddComponent<Image>();
+        restartImage.color = Color.white;
+        RectTransform restartRect = restartGO.GetComponent<RectTransform>();
+        restartRect.sizeDelta = new Vector2(160, 30);
+        restartRect.anchoredPosition = new Vector2(0, 10);
+        Text restartText = new GameObject("Text").AddComponent<Text>();
+        restartText.transform.SetParent(restartGO.transform);
+        restartText.text = "Restart";
+        restartText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+        restartText.alignment = TextAnchor.MiddleCenter;
+        restartText.color = Color.black;
+        RectTransform restartTextRect = restartText.GetComponent<RectTransform>();
+        restartTextRect.anchorMin = Vector2.zero;
+        restartTextRect.anchorMax = Vector2.one;
+        restartTextRect.offsetMin = Vector2.zero;
+        restartTextRect.offsetMax = Vector2.zero;
+        restartButton.onClick.AddListener(RestartGame);
 
         // Result Text
         GameObject textGO = new GameObject("ResultText");
@@ -103,5 +127,10 @@ public class CubeGame : MonoBehaviour
         {
             resultText.text = $"You lasted {timeInAir:F2} seconds";
         }
+    }
+
+    void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
