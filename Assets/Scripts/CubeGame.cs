@@ -7,6 +7,9 @@ public class CubeGame : MonoBehaviour
     private CubeModel model;
     private CubeView view;
 
+    const float floorLimit = 0.5f;
+    const float ceilingLimit = 9.5f;
+
     void Start()
     {
         model = new CubeModel();
@@ -26,14 +29,22 @@ public class CubeGame : MonoBehaviour
         }
     }
 
+    public bool GameOver => model.GameOver;
+
+    public void TriggerGameOver()
+    {
+        if (model.GameOver) return;
+        float timeInAir = model.EndGame();
+        view.ShowResult(timeInAir, model.HighScore);
+    }
+
     void Update()
     {
         if (model.GameOver || view.CubeRb == null) return;
 
-        if (view.CubeRb.transform.position.y <= 0.5f)
+        if (view.CubeRb.transform.position.y <= floorLimit || view.CubeRb.transform.position.y >= ceilingLimit)
         {
-            float timeInAir = model.EndGame();
-            view.ShowResult(timeInAir, model.HighScore);
+            TriggerGameOver();
         }
     }
 }
