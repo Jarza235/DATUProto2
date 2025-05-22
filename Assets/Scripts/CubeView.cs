@@ -99,8 +99,7 @@ public class CubeView
     {
         if (ResultText != null)
         {
-            ResultText.text = $"You lasted {time:F2} seconds
-Best: {highScore:F2} seconds";
+            ResultText.text = $"You lasted {time:F2} seconds Best: {highScore:F2} seconds";
         }
     }
 
