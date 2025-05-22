@@ -23,6 +23,9 @@ public class ScrollingTexture : MonoBehaviour
 
     void Update()
     {
+        if (CubeGame.Instance != null && CubeGame.Instance.GameOver)
+            return;
+
         if (rend == null || rend.material == null) return;
 
         float uvWidth = 10f * transform.localScale.x; // world units that correspond to 1 offset unit
