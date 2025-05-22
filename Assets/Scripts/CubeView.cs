@@ -90,6 +90,8 @@ public class CubeView
         ResultText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
         ResultText.fontSize = 24;
         ResultText.alignment = TextAnchor.MiddleCenter;
+        ResultText.horizontalOverflow = HorizontalWrapMode.Overflow;
+        ResultText.verticalOverflow = VerticalWrapMode.Overflow;
         RectTransform resultRect = ResultText.GetComponent<RectTransform>();
         resultRect.sizeDelta = new Vector2(300, 40);
         resultRect.anchoredPosition = new Vector2(0, -50);
