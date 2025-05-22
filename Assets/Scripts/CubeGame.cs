@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class CubeGame : MonoBehaviour
 {
+    public static CubeGame Instance { get; private set; }
     public float jumpForce = 50f;
 
     private CubeModel model;
@@ -10,6 +11,17 @@ public class CubeGame : MonoBehaviour
 
     const float floorLimit = 0.5f;
     const float ceilingLimit = 9.5f;
+
+    void Awake()
+    {
+        Instance = this;
+    }
+
+    void OnDestroy()
+    {
+        if (Instance == this)
+            Instance = null;
+    }
 
     void Start()
     {

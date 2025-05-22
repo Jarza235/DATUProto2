@@ -7,6 +7,9 @@ public class Obstacle : MonoBehaviour
 
     void Update()
     {
+        if (CubeGame.Instance != null && CubeGame.Instance.GameOver)
+            return;
+
         transform.position += Vector3.left * speed * Time.deltaTime;
         if (transform.position.x < leftLimit)
         {
@@ -18,10 +21,9 @@ public class Obstacle : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            CubeGame game = FindObjectOfType<CubeGame>();
-            if (game != null)
+            if (CubeGame.Instance != null)
             {
-                game.TriggerGameOver();
+                CubeGame.Instance.TriggerGameOver();
             }
         }
     }

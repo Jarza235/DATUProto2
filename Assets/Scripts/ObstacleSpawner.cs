@@ -35,6 +35,9 @@ public class ObstacleSpawner : MonoBehaviour
 
     void Update()
     {
+        if (CubeGame.Instance != null && CubeGame.Instance.GameOver)
+            return;
+
         timer += Time.deltaTime;
         if (timer >= spawnInterval)
         {
